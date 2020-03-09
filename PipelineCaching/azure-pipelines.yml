@@ -14,8 +14,8 @@ variables:
   buildDirectory: '$(Build.SourcesDirectory)/PipelineCaching'
 
 steps:
-- script: dotnet restore --locked-mode
-  displayName: 'dotnet restore --locked-mode'
+- script: dotnet restore
+  displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
 - script: dotnet build --configuration $(buildConfiguration)
