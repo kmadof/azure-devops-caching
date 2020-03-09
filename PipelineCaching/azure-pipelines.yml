@@ -18,6 +18,9 @@ steps:
   displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
+- script: dir
+  workingDirectory: $(buildDirectory)/PipelineCaching
+
 - task: CopyFiles@2
   inputs:
     sourceFolder: $(buildDirectory)/PipelineCaching
