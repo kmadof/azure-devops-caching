@@ -18,6 +18,17 @@ steps:
   displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: $(buildDirectory)/PipelineCaching
+    contents: package.lock.json
+    targetFolder:  $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: LockedJson
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: $(buildDirectory)
