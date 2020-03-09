@@ -19,12 +19,16 @@ steps:
   workingDirectory: $(buildDirectory)
 
 - task: CopyFiles@2
+  displayName: Copy packages.lock.json file
+  enabled: false
   inputs:
     sourceFolder: $(buildDirectory)/PipelineCaching
     contents: packages.lock.json
     targetFolder:  $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish packages.lock.json file
+  enabled: false
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: LockedJson
