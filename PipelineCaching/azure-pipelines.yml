@@ -18,6 +18,17 @@ steps:
   displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      Get-ChildItem $(UserProfile)\.nuget\packages
+    pwsh: true
+
 - script: dir
   workingDirectory: $(Pipeline.Workspace)/.nuget/packages
 
