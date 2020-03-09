@@ -11,7 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  buildDirectory: '$(Build.SourcesDirectory)/PipelineCaching'
+  buildDirectory: '$(Build.SourcesDirectory)'
 
 steps:
 - script: dotnet restore
