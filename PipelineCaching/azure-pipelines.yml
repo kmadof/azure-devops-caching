@@ -18,6 +18,9 @@ steps:
   displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
+- script: dir
+  workingDirectory: $(Pipeline.Workspace)/.nuget/packages
+
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
   enabled: false
