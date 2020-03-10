@@ -18,6 +18,8 @@ steps:
   displayName: 'dotnet restore'
   workingDirectory: $(buildDirectory)
 
+- script: printenv
+
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
@@ -26,7 +28,7 @@ steps:
       
       Write-Host "Hello World"
       
-      Get-ChildItem $(UserProfile)\.nuget\packages
+      Get-ChildItem '~/.nuget/packages'
     pwsh: true
 
 - script: dir
