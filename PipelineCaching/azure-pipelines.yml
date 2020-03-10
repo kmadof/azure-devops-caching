@@ -14,9 +14,12 @@ pool:
 variables:
   buildConfiguration: 'Release'
   buildDirectory: '$(Build.SourcesDirectory)'
-  NUGET_PACKAGES: '/home/vsts/.nuget/packages'
+#NUGET_PACKAGES: '/home/vsts/.nuget/packages'
 
 steps:
+
+- script: echo $(NUGET_PACKAGES)
+  displayName: 'echo NUGET_PACKAGES'
 - task: Cache@2
   inputs:
     key: 'nuget | "$(Agent.OS)" | PipelineCaching/packages.lock.json'
