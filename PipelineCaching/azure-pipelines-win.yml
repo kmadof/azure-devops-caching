@@ -47,10 +47,76 @@ steps:
       Get-ChildItem '~/.nuget/packages'
     pwsh: true
 
+- task: PowerShell@2
+  condition: always()
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      Get-ChildItem '%userprofile%\.nuget\packages'
+    pwsh: true
+
 - script: dir
   enabled: true
   condition: always()
   workingDirectory: $(Pipeline.Workspace)/.nuget/packages
+
+- script: dir
+  displayName: 'Displaying Pipeline.Workspace folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Pipeline.Workspace)
+
+- script: dir
+  displayName: 'Displaying $(Build.SourcesDirectory) folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Build.SourcesDirectory)
+
+- script: dir
+  displayName: 'Displaying System.DefaultWorkingDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(System.DefaultWorkingDirectory)
+
+- script: dir
+  displayName: 'Displaying Agent.BuildDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Agent.BuildDirectory)
+
+- script: dir
+  displayName: 'Displaying Agent.HomeDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Agent.HomeDirectory)
+
+- script: dir
+  displayName: 'Displaying Build.BinariesDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Build.BinariesDirectory)
+
+- script: dir
+  displayName: 'Displaying Build.StagingDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Build.StagingDirectory)
+
+- script: dir
+  displayName: 'Displaying Agent.TempDirectory folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Agent.TempDirectory)
+
+- script: dir
+  displayName: 'Displaying Agent.WorkFolder folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(Agent.WorkFolder)
 
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
