@@ -14,9 +14,26 @@ pool:
 variables:
   buildConfiguration: 'Release'
   buildDirectory: '$(Build.SourcesDirectory)'
-  NUGET_PACKAGES: '/home/vsts/.nuget/packages'
+#NUGET_PACKAGES: '/home/vsts/.nuget/packages'
 
 steps:
+
+- script: dotnet nuget locals global-packages -l
+  displayName: 'dotnet nuget locals global-packages -l'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $cache = dotnet nuget locals global-packages -l
+      $cacheLocation = $cache.Replace('info : global-packages: ', '')
+      
+      Write-Host $cacheLocation
+      
+      Write-Host "##vso[task.setvariable variable=NUGET_PACKAGES;]$cacheLocation"
+
+    pwsh: true
+
 - task: Cache@2
   inputs:
     key: 'nuget | "$(Agent.OS)" | PipelineCaching/packages.lock.json'
@@ -32,22 +49,11 @@ steps:
   condition: ne(variables.CACHE_RESTORED, 'true')
   workingDirectory: $(buildDirectory)
 
-- script: printenv
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      
-      Write-Host "Hello World"
-      
-      Get-ChildItem '~/.nuget/packages'
-    pwsh: true
-
 - script: dir
-  enabled: false
-  workingDirectory: $(Pipeline.Workspace)/.nuget/packages
+  displayName: 'Displaying NuGet folder'
+  enabled: true
+  condition: always()
+  workingDirectory: $(NUGET_PACKAGES)
 
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
