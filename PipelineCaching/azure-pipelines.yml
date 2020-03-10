@@ -33,7 +33,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Write-Host $(NUGET_PACKAGES)
+      Write-Host '$(NUGET_PACKAGES)'
 
     pwsh: true
 - task: Cache@2
