@@ -9,14 +9,29 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-#NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages - not working, there is no such folder
-#NUGET_PACKAGES: '~/.nuget/packages' - not working at restore
 variables:
   buildConfiguration: 'Release'
   buildDirectory: '$(Build.SourcesDirectory)'
   NUGET_PACKAGES: 'D:\home\vsts\.nuget\packages'
 
 steps:
+
+- script: dotnet nuget locals global-packages -l
+  displayName: 'dotnet nuget locals global-packages -l'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $cache = dotnet nuget locals global-packages -l
+      $cacheLocation = $cache.Replace('info : global-packages: ', '')
+      
+      Write-Host $cacheLocation
+      
+      Write-Host "##vso[task.setvariable variable=NUGET_PACKAGES;]$cacheLocation"
+
+    pwsh: true
+
 - task: Cache@2
   enabled: true
   inputs:
@@ -32,13 +47,6 @@ steps:
   displayName: 'dotnet restore'
   condition: ne(variables.CACHE_RESTORED, 'true')
   workingDirectory: $(buildDirectory)
-
-- script:  dotnet nuget locals all -l
-  displayName: 'dotnet nuget locals all -l'
-  condition: always()
-  workingDirectory: $(buildDirectory)
-
-- script: printenv
 
 - script: dir
   displayName: 'Displaying NuGet folder'
