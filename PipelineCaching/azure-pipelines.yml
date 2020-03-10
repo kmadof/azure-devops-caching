@@ -49,6 +49,9 @@ steps:
   enabled: false
   workingDirectory: $(Pipeline.Workspace)/.nuget/packages
 
+- script: dotnet nuget locals global-packages -l
+  displayName: 'dotnet nuget locals global-packages -l'
+
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
   enabled: false
