@@ -18,7 +18,7 @@ variables:
 
 steps:
 - task: Cache@2
-  enabled: false
+  enabled: true
   inputs:
     key: 'nuget | "$(Agent.OS)" | PipelineCaching/packages.lock.json'
     restoreKeys: |
@@ -48,7 +48,7 @@ steps:
 
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
-  enabled: true
+  enabled: false
   inputs:
     sourceFolder: $(buildDirectory)/PipelineCaching
     contents: packages.lock.json
@@ -56,7 +56,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: Publish packages.lock.json file
-  enabled: true
+  enabled: false
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: LockedJson
