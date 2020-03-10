@@ -32,6 +32,7 @@ steps:
     pwsh: true
 
 - script: dir
+  enabled: false
   workingDirectory: $(Pipeline.Workspace)/.nuget/packages
 
 - task: CopyFiles@2
