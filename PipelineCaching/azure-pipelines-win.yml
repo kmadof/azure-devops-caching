@@ -49,6 +49,19 @@ steps:
 
 - task: PowerShell@2
   condition: always()
+  displayName: 'Displaying %userprofile% folder'
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      Get-ChildItem '%userprofile%'
+    pwsh: true
+
+- task: PowerShell@2
+  condition: always()
   inputs:
     targetType: 'inline'
     script: |
