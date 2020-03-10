@@ -47,6 +47,18 @@ steps:
       Get-ChildItem '~/.nuget/packages'
     pwsh: true
 
+- task: PowerShell@2
+  condition: always()
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      Get-ChildItem '%userprofile%\.nuget\packages'
+    pwsh: true
+
 - script: dir
   enabled: true
   condition: always()
