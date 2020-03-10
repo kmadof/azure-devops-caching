@@ -15,6 +15,7 @@ variables:
   buildConfiguration: 'Release'
   buildDirectory: '$(Build.SourcesDirectory)'
   NUGET_PACKAGES: '/home/vsts/.nuget/packages'
+  createLockJason: true
 
 steps:
 - task: Cache@2
@@ -54,7 +55,7 @@ steps:
 
 - task: CopyFiles@2
   displayName: Copy packages.lock.json file
-  enabled: false
+  enabled: $(createLockJason)
   inputs:
     sourceFolder: $(buildDirectory)/PipelineCaching
     contents: packages.lock.json
@@ -62,7 +63,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: Publish packages.lock.json file
-  enabled: false
+  enabled: $(createLockJason)
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: LockedJson
