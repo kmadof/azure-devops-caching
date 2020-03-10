@@ -33,6 +33,11 @@ steps:
   condition: ne(variables.CACHE_RESTORED, 'true')
   workingDirectory: $(buildDirectory)
 
+- script:  dotnet nuget locals all -l
+  displayName: 'dotnet nuget locals all -l'
+  condition: always()
+  workingDirectory: $(buildDirectory)
+
 - script: printenv
 
 - task: PowerShell@2
