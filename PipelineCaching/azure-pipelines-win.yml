@@ -35,6 +35,7 @@ steps:
 - script: printenv
 
 - task: PowerShell@2
+  condition: always()
   inputs:
     targetType: 'inline'
     script: |
@@ -46,7 +47,8 @@ steps:
     pwsh: true
 
 - script: dir
-  enabled: false
+  enabled: true
+  condition: always()
   workingDirectory: $(Pipeline.Workspace)/.nuget/packages
 
 - task: CopyFiles@2
