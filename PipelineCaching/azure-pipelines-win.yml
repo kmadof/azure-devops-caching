@@ -18,6 +18,7 @@ variables:
 
 steps:
 - task: Cache@2
+  enabled: false
   inputs:
     key: 'nuget | "$(Agent.OS)" | PipelineCaching/packages.lock.json'
     restoreKeys: |
