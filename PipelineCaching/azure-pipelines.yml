@@ -18,7 +18,18 @@ variables:
 
 steps:
 
-- script: echo $env:NUGET_PACKAGES
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $cache = dotnet nuget locals global-packages -l
+      $cacheLocation = $cache.Replace('info : global-packages: ', '')
+
+      Write-Host "##vso[task.setvariable variable=NUGET_PACKAGES;]$cacheLocation"
+
+    pwsh: true
+
+- script: echo $(NUGET_PACKAGES)
   displayName: 'echo NUGET_PACKAGES'
 - task: Cache@2
   inputs:
