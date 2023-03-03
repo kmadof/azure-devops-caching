@@ -13,7 +13,7 @@
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="jQuery" Version="3.4.1" />
-    <PackageReference Include="jQuery.Validation" Version="1.19.1" />
+    <PackageReference Include="jQuery.Validation" Version="1.19.3" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.13.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.OData" Version="5.8.4" />
